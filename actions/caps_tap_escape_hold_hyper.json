@@ -1,0 +1,54 @@
+{
+  "description": "Caps tap -> Escape, hold -> Hyper",
+  "manipulators": [
+    {
+      "from": {
+        "key_code": "caps_lock",
+        "modifiers": { "optional": ["any"] }
+      },
+      "to_delayed_action": {
+        "to_if_canceled": [
+          {
+            "sticky_modifier": {
+              "left_shift": "toggle"
+            }
+          },
+          {
+            "sticky_modifier": {
+              "left_control": "toggle"
+            }
+          },
+          {
+            "sticky_modifier": {
+              "left_option": "toggle"
+            }
+          },
+          {
+            "sticky_modifier": {
+              "left_command": "toggle"
+            }
+          }
+        ],
+        "to_if_invoked": [
+          {
+            "key_code": "vk_none"
+          }
+        ]
+      },
+      "to_if_alone": [
+        {
+          "halt": true,
+          "key_code": "escape"
+        }
+      ],
+      "to_if_held_down": [
+        {
+          "halt": true,
+          "key_code": "left_shift",
+          "modifiers": ["left_command", "left_option", "left_control"]
+        }
+      ],
+      "type": "basic"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "description": "VIM (DVORAK) - move h/l left/right and j/k down/up when either e or i is held",
+  "manipulators": [
+    // Set the e_held variable when e is pressed
+    {
+      "from": { "key_code": "e" },
+      "to_delayed_action": {
+        "to_if_canceled": [
+          {
+            "halt": true,
+            "key_code": "e"
+          }
+        ]
+      },
+      "to_if_alone": [{ "halt": true, "key_code": "e" }],
+      "to_if_held_down": [
+        {
+          "set_variable": {
+            "name": "e_held",
+            "value": 1,
+            "key_up_value": 0,
+            "type": "set"
+          }
+        }
+      ],
+      "type": "basic"
+    },
+
+    // Set the i_held variable when i is pressed
+    {
+      "from": { "key_code": "i" },
+      "to_delayed_action": {
+        "to_if_canceled": [
+          {
+            "halt": true,
+            "key_code": "i"
+          }
+        ]
+      },
+      "to_if_alone": [{ "halt": true, "key_code": "i" }],
+      "to_if_held_down": [
+        {
+          "set_variable": {
+            "name": "i_held",
+            "value": 1,
+            "key_up_value": 0,
+            "type": "set"
+          }
+        }
+      ],
+      "type": "basic"
+    },
+
+    // Remap j (DVORAK h) to left if e is held down
+    {
+      "from": { "key_code": "j" },
+      "conditions": [
+        {
+          "type": "variable_if",
+          "name": "e_held",
+          "value": 1
+        }
+      ],
+      "to": [{ "halt": true, "key_code": "left_arrow" }],
+      "to_if_alone": [{ "key_code": "j" }],
+      "type": "basic"
+    },
+
+    // Remap p (DVORAK l) to right if p is held down
+    {
+      "from": { "key_code": "p" },
+      "conditions": [
+        {
+          "type": "variable_if",
+          "name": "e_held",
+          "value": 1
+        }
+      ],
+      "to": [{ "halt": true, "key_code": "right_arrow" }],
+      "to_if_alone": [{ "key_code": "p" }],
+      "type": "basic"
+    },
+
+    // Remap c (DVORAK j) to down if i is held down
+    {
+      "from": { "key_code": "c" },
+      "conditions": [
+        {
+          "type": "variable_if",
+          "name": "i_held",
+          "value": 1
+        }
+      ],
+      "to": [{ "halt": true, "key_code": "down_arrow" }],
+      "to_if_alone": [{ "key_code": "c" }],
+      "type": "basic"
+    },
+
+    // Remap v (DVORAK k) to up if i is held down
+    {
+      "from": { "key_code": "v" },
+      "conditions": [
+        {
+          "type": "variable_if",
+          "name": "i_held",
+          "value": 1
+        }
+      ],
+      "to": [{ "halt": true, "key_code": "up_arrow" }],
+      "to_if_alone": [{ "key_code": "v" }],
+      "type": "basic"
+    }
+  ]
+}
